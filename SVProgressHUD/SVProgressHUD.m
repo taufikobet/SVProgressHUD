@@ -755,11 +755,13 @@ static CGFloat SVProgressHUDRingThickness;
         stringLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		stringLabel.backgroundColor = [UIColor clearColor];
 		stringLabel.adjustsFontSizeToFitWidth = YES;
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
+        stringLabel.numberOfLines = 0;
+        
+        #if __IPHONE_OS_VERSION_MIN_REQUIRED < 60000
         stringLabel.textAlignment = UITextAlignmentCenter;
-#else
+        #else
         stringLabel.textAlignment = NSTextAlignmentCenter;
-#endif
+        #endif
         
 		stringLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
 
@@ -767,9 +769,7 @@ static CGFloat SVProgressHUDRingThickness;
 		stringLabel.textColor = self.hudForegroundColor;
 		stringLabel.font = self.hudFont;
         
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-            stringLabel.numberOfLines = 0;
-        } else {
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] < 7.0) {
             stringLabel.shadowColor = self.hudStatusShadowColor;
             stringLabel.shadowOffset = CGSizeMake(0, -1);
         }
